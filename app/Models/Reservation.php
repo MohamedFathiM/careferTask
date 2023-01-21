@@ -10,7 +10,11 @@ class Reservation extends Model
 {
     use HasFactory;
 
-
+    protected $fillable  = [
+        'bus_id',
+        'total_amount',
+        'discount'
+    ];
     #region relationships
     public function passenger(): BelongsTo
     {
@@ -25,6 +29,11 @@ class Reservation extends Model
     public function seat()
     {
         return $this->belongsTo(Seat::class);
+    }
+
+    public function userOrders()
+    {
+        return $this->hasMany(UserOrder::class);
     }
     #endregion relationships
 }
