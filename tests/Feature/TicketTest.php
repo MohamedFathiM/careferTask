@@ -3,8 +3,10 @@
 namespace Tests\Feature;
 
 use App\Models\Bus;
+use App\Models\Reservation;
 use App\Models\Seat;
 use App\Models\Trip;
+use App\Models\UserOrder;
 use Tests\TestCase;
 
 class TicketTest extends TestCase
@@ -118,5 +120,19 @@ class TicketTest extends TestCase
         ]);
 
         $response->assertStatus(200)->assertJsonPath('data.discount', 20);
+    }
+
+    public function test_if_order_soft_deleted()
+    {
+        $reservation = Reservation::factory()->create();
+        $userOrder = UserOrder::factory()->create([
+            'reservation_id' => $reservation->id
+        ]);
+
+        $response = $this->deleteJson(route('orders.destroy', $reservation));
+
+        $response->assertStatus(200)->assertSee('Deleted Successfully ');
+        $this->assertSoftDeleted($reservation);
+        $this->assertSoftDeleted($userOrder);
     }
 }

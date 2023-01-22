@@ -69,6 +69,10 @@ class TicketController extends Controller
 
     public function destroy($id)
     {
-        //
+        $reservation = Reservation::findOrFail($id);
+        $reservation->userOrders()->delete();
+        $reservation->delete();
+
+        return successResponse(message: "Deleted Successfully ");
     }
 }
