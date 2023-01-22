@@ -24,8 +24,8 @@ class TicketController extends Controller
 
         try {
             if ($lock->get()) {
-                if ($bus->seats_number <= $bus->reservations()->count()) {
-                    return failedResponse('Bus Exceed Capacity');
+                if ($bus->userOrders()->count() >= $bus->seats_number) {
+                    return failedResponse('Bus Exceed Capacity', 422);
                 }
 
                 if (count($data['passengers']) >= 5) $discount = ['discount' => 20];
@@ -48,7 +48,7 @@ class TicketController extends Controller
             $lock->release();
         }
 
-        return successResponse('Done');
+        return successResponse(data: $reservation, message: 'Done');
     }
 
 

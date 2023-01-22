@@ -13,7 +13,7 @@ class BusFactory extends Factory
     {
         return [
             'name' => $this->faker->streetName(),
-            'seats_number' => $this->faker->random_int(20, 100),
+            'seats_number' => $this->faker->numberBetween(20, 100),
         ];
     }
 }

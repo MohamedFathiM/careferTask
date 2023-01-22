@@ -21,5 +21,10 @@ class Bus extends Model
     {
         return $this->hasMany(Reservation::class);
     }
+
+    public function userOrders()
+    {
+        return $this->hasManyThrough(UserOrder::class, Reservation::class);
+    }
     #endregion relationships
 }
