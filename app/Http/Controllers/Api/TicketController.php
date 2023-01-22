@@ -7,7 +7,6 @@ use App\Http\Requests\Api\TicketRequest;
 use App\Http\Resources\Api\OrderCollection;
 use App\Models\Bus;
 use App\Models\Reservation;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class TicketController extends Controller
@@ -22,8 +21,8 @@ class TicketController extends Controller
     public function store(TicketRequest $request)
     {
         $data = $request->validated();
-        $bus  = Bus::find($data['bus_id']);
-        $lock = Cache::lock('bus' . $bus->id . '_lock', 120);
+        $bus = Bus::find($data['bus_id']);
+        $lock = Cache::lock('bus'.$bus->id.'_lock', 120);
 
         try {
             if ($lock->get()) {
@@ -31,7 +30,9 @@ class TicketController extends Controller
                     return failedResponse('Bus Exceed Capacity', 422);
                 }
 
-                if (count($data['passengers']) >= 5) $discount = ['discount' => 20];
+                if (count($data['passengers']) >= 5) {
+                    $discount = ['discount' => 20];
+                }
 
                 $reservation = Reservation::create([
                     'bus_id' => $data['bus_id'],
@@ -53,7 +54,6 @@ class TicketController extends Controller
 
         return successResponse(data: $reservation, message: 'Done');
     }
-
 
     public function show($id)
     {

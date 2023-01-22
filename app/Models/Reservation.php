@@ -12,12 +12,12 @@ class Reservation extends Model
 {
     use HasFactory, HasTimestampTrait, SoftDeletes;
 
-    protected $fillable  = [
+    protected $fillable = [
         'bus_id',
         'total_amount',
-        'discount'
+        'discount',
     ];
-    #region relationships
+
     public function passenger(): BelongsTo
     {
         return $this->belongsTo(User::class, 'passenger_id');

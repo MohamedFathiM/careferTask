@@ -1,8 +1,7 @@
 <?php
 
-if (!function_exists('successResponse')) {
-
-    function successResponse($data = null, $pagination = null, $extra = [], $status = 200, $message = " ")
+if (! function_exists('successResponse')) {
+    function successResponse($data = null, $pagination = null, $extra = [], $status = 200, $message = ' ')
     {
         $json['status'] = true;
         if ($message) {
@@ -28,7 +27,7 @@ if (!function_exists('successResponse')) {
                     'count' => $pagination->count(),
                     'per_page' => $pagination->perPage(),
                     'current_page' => $pagination->currentPage(),
-                    'last_page' => $pagination->lastPage()
+                    'last_page' => $pagination->lastPage(),
                 ],
             ];
         }
@@ -37,14 +36,13 @@ if (!function_exists('successResponse')) {
     }
 }
 
-if (!function_exists('failedResponse')) {
-
+if (! function_exists('failedResponse')) {
     function failedResponse($message = 'Failure', $status = 400)
     {
         return response()->json([
             'status' => false,
             'message' => $message,
-            'data' => null
+            'data' => null,
         ], $status);
     }
 }

@@ -21,7 +21,7 @@ class SeatFactory extends Factory
         return [
             'bus_id' => Bus::factory()->create(),
             'trip_id' => Trip::factory()->create(),
-            'seat_id' => 'A' . $this->faker->numberBetween(1, 20)
+            'seat_id' => 'A'.$this->faker->numberBetween(1, 20),
         ];
     }
 }

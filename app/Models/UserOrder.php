@@ -12,7 +12,7 @@ class UserOrder extends Model
 {
     use HasFactory, HasTimestampTrait, SoftDeletes;
 
-    protected $fillable  = [
+    protected $fillable = [
         'seat_id',
         'trip_id',
         'email',

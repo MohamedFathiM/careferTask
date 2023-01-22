@@ -5,8 +5,6 @@ namespace Tests\Feature;
 use App\Models\Bus;
 use App\Models\Seat;
 use App\Models\Trip;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class TicketTest extends TestCase
@@ -28,7 +26,7 @@ class TicketTest extends TestCase
                     'seat_id' => $seat->id,
                     'email' => 'ahmed@yahoo.com',
                     'trip_id' => $trip->id,
-                ]
+                ],
             ],
 
         ]);
@@ -55,7 +53,7 @@ class TicketTest extends TestCase
                     'seat_id' => Seat::factory()->create()->id,
                     'email' => 'ahmed@yahoo.com',
                     'trip_id' => Trip::factory()->create()->id,
-                ]
+                ],
             ],
 
         ]);
@@ -72,7 +70,7 @@ class TicketTest extends TestCase
                     'seat_id' => Seat::factory()->create()->id,
                     'email' => 'ahmed@yahoo.com',
                     'trip_id' => Trip::factory()->create()->id,
-                ]
+                ],
             ],
 
         ]);
@@ -114,7 +112,7 @@ class TicketTest extends TestCase
                     'seat_id' => Seat::factory()->create()->id,
                     'email' => 'ahmed5@yahoo.com',
                     'trip_id' => Trip::factory()->create()->id,
-                ]
+                ],
             ],
 
         ]);

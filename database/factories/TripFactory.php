@@ -17,11 +17,12 @@ class TripFactory extends Factory
     public function definition()
     {
         $type = $this->faker->randomElement(['short', 'long']);
+
         return [
             'type' => $type,
             'pickup' => 'Cairo',
             'destination' => $this->faker->randomElement(['Aswan', 'Alexandria']),
-            'distance' => $type == 'long' ? 150  : 90,
+            'distance' => $type == 'long' ? 150 : 90,
         ];
     }
 }

@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Bus;
 use App\Models\Trip;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class InitSeeder extends Seeder
@@ -13,12 +12,12 @@ class InitSeeder extends Seeder
     {
         $busOne = Bus::create([
             'name' => 'Bus 01',
-            'seats_number' => 20
+            'seats_number' => 20,
         ]);
 
         $busTwo = Bus::create([
             'name' => 'Bus 02',
-            'seats_number' => 20
+            'seats_number' => 20,
         ]);
 
         $shortTrip = Trip::create([
@@ -38,12 +37,12 @@ class InitSeeder extends Seeder
         for ($seat = 1; $seat <= 20; $seat++) {
             $lineOneSeats[] = [
                 'trip_id' => $shortTrip->id,
-                'seat_id' => 'A' . $seat
+                'seat_id' => 'A'.$seat,
             ];
 
             $lineTwoSeats[] = [
                 'trip_id' => $longTrip->id,
-                'seat_id' => 'B' . $seat
+                'seat_id' => 'B'.$seat,
             ];
         }
 

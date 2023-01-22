@@ -13,11 +13,11 @@ class OrderResource extends JsonResource
             'trip' => [
                 'id' => $this->trip?->id,
                 'pickup' => $this->trip?->pickup,
-                'destination' => $this->trip?->destination
+                'destination' => $this->trip?->destination,
             ],
             'email' => $this->email,
             'date' => $this->reservation_date->format('Y-m-d'),
-            'created_at' => $this->created_at
+            'created_at' => $this->created_at,
         ];
     }
 }

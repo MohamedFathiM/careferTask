@@ -11,11 +11,11 @@ class OrderCollection extends JsonResource
         return [
             'bus' => [
                 'id' => $this->bus?->id,
-                'name' => $this->bus?->name
+                'name' => $this->bus?->name,
             ],
             'total_amount' => $this->total_amount,
             'discount' => $this->discount,
-            'userOrders' => OrderResource::collection($this->userOrders)
+            'userOrders' => OrderResource::collection($this->userOrders),
         ];
     }
 }
