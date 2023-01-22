@@ -21,7 +21,7 @@ class TicketTest extends TestCase
         $seat = Seat::factory()->create();
         $trip = Trip::factory()->create();
 
-        $response = $this->post(route('orders.store'), [
+        $response = $this->postJson(route('orders.store'), [
             'bus_id' => $bus->id,
             'passengers' => [
                 [
@@ -31,8 +31,6 @@ class TicketTest extends TestCase
                 ]
             ],
 
-        ], [
-            'Accept' => 'application/json'
         ]);
 
         $response->assertStatus(200)->assertSeeText('Done');
@@ -45,7 +43,7 @@ class TicketTest extends TestCase
             'seats_number' => 2,
         ]);
 
-        $this->post(route('orders.store'), [
+        $this->postJson(route('orders.store'), [
             'bus_id' => $bus->id,
             'passengers' => [
                 [
@@ -60,11 +58,9 @@ class TicketTest extends TestCase
                 ]
             ],
 
-        ], [
-            'Accept' => 'application/json'
         ]);
 
-        $response = $this->post(route('orders.store'), [
+        $response = $this->postJson(route('orders.store'), [
             'bus_id' => $bus->id,
             'passengers' => [
                 [
@@ -79,8 +75,6 @@ class TicketTest extends TestCase
                 ]
             ],
 
-        ], [
-            'Accept' => 'application/json'
         ]);
 
         $response->assertStatus(422)->assertSeeText('Bus Exceed Capacity');
@@ -93,7 +87,7 @@ class TicketTest extends TestCase
             'seats_number' => 2,
         ]);
 
-        $response = $this->post(route('orders.store'), [
+        $response = $this->postJson(route('orders.store'), [
             'bus_id' => $bus->id,
             'passengers' => [
                 [
@@ -123,8 +117,6 @@ class TicketTest extends TestCase
                 ]
             ],
 
-        ], [
-            'Accept' => 'application/json'
         ]);
 
         $response->assertStatus(200)->assertJsonPath('data.discount', 20);
