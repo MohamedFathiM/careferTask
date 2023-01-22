@@ -2,7 +2,13 @@
 
 namespace App\Exceptions;
 
+use Dotenv\Exception\ValidationException;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\PostTooLargeException;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -46,5 +52,21 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function render($request, $exception)
+    {
+        if ($request->expectsJson()) {
+            return match (true) {
+                $exception instanceof PostTooLargeException => failedResponse(message: $exception->getMessage(), status: 400),
+                $exception instanceof AuthenticationException => failedResponse(message: $exception->getMessage(), status: 401),
+                $exception instanceof ThrottleRequestsException => failedResponse(message: $exception->getMessage(), status: 429),
+                $exception instanceof ModelNotFoundException ||
+                    $exception instanceof NotFoundHttpException  => failedResponse(message: $exception->getMessage(), status: 404),
+                default => failedResponse(message: $exception->getMessage() . " in " . $exception->getFile() . " at line " . $exception->getLine(), status: 500)
+            };
+        }
+
+        return parent::render($request, $exception);
     }
 }

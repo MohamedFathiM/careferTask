@@ -135,4 +135,29 @@ class TicketTest extends TestCase
         $this->assertSoftDeleted($reservation);
         $this->assertSoftDeleted($userOrder);
     }
+
+    public function test_update_ticket()
+    {
+        $reservation = Reservation::factory()->create();
+        $userOrder = UserOrder::factory()->create([
+            'reservation_id' => $reservation->id,
+            'email' => 'ahmed@yahoo.com'
+        ]);
+
+        $response = $this->putJson(route('orders.update', $reservation), [
+            'passengers' => [
+                [
+                    'id'    => $userOrder->id,
+                    'email' => 'abutaleb@yahoo.com',
+                ],
+            ],
+
+        ]);
+
+        $response->assertStatus(200)->assertJsonPath(
+            'data.userOrders.0.email',
+            'abutaleb@yahoo.com'
+        )
+            ->assertSeeText('Updated Successfully');
+    }
 }

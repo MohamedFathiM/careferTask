@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\TicketRequest;
+use App\Http\Requests\Api\Tickets\TicketRequest;
+use App\Http\Requests\Api\Tickets\UpdateRequest;
 use App\Http\Resources\Api\OrderCollection;
 use App\Models\Bus;
 use App\Models\Reservation;
-use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 
 class TicketController extends Controller
@@ -63,9 +63,16 @@ class TicketController extends Controller
         return successResponse(OrderCollection::make($reservation));
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
-        //
+        $data  = $request->validated();
+        $reservation = Reservation::findOrFail($id);
+        foreach ($data['passengers'] as $passenger) {
+            $reservation->userOrders()->where('id', $passenger['id'])
+                ->update(array_except($passenger, ['id']));
+        }
+
+        return successResponse(OrderCollection::make($reservation), message: "Updated Successfully ");
     }
 
     public function destroy($id)
@@ -79,6 +86,5 @@ class TicketController extends Controller
 
     public function frequentBooked()
     {
-        
     }
 }
