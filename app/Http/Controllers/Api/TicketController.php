@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Tickets\TicketRequest;
 use App\Http\Requests\Api\Tickets\UpdateRequest;
+use App\Http\Resources\Api\FrequestTripResource;
 use App\Http\Resources\Api\OrderCollection;
 use App\Models\Bus;
 use App\Models\Reservation;
+use App\Models\UserOrder;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class TicketController extends Controller
 {
@@ -86,5 +89,12 @@ class TicketController extends Controller
 
     public function frequentBooked()
     {
+        $userOrders = UserOrder::select(DB::raw('COUNT(email) as email_count,trip_id,email'))
+            ->groupByRaw('trip_id,email')
+            ->orderBy('email_count', 'desc')
+            ->get()
+            ->unique('email');
+
+        return successResponse(FrequestTripResource::collection($userOrders), message: 'all Frequent For Users');
     }
 }
