@@ -7,6 +7,7 @@ use App\Http\Requests\Api\TicketRequest;
 use App\Http\Resources\Api\OrderCollection;
 use App\Models\Bus;
 use App\Models\Reservation;
+use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 
 class TicketController extends Controller
@@ -22,7 +23,7 @@ class TicketController extends Controller
     {
         $data = $request->validated();
         $bus = Bus::find($data['bus_id']);
-        $lock = Cache::lock('bus'.$bus->id.'_lock', 120);
+        $lock = Cache::lock('bus' . $bus->id . '_lock', 120);
 
         try {
             if ($lock->get()) {
@@ -74,5 +75,10 @@ class TicketController extends Controller
         $reservation->delete();
 
         return successResponse(message: "Deleted Successfully ");
+    }
+
+    public function frequentBooked()
+    {
+        
     }
 }

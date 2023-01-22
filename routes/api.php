@@ -8,4 +8,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('frequent_booked', [TicketController::class, 'frequentBooked']);
 Route::apiResource('orders', TicketController::class);
