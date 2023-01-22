@@ -20,10 +20,20 @@ if (!function_exists('successResponse')) {
         }
 
         if ($pagination) {
-            $json['pagination'] = $pagination;
+            $meta = [
+                'meta' => [
+                    'total' => $pagination->total(),
+                    'from' => $pagination->firstItem(),
+                    'to' => $pagination->lastItem(),
+                    'count' => $pagination->count(),
+                    'per_page' => $pagination->perPage(),
+                    'current_page' => $pagination->currentPage(),
+                    'last_page' => $pagination->lastPage()
+                ],
+            ];
         }
 
-        return response()->json($json, $status);
+        return response()->json($json + ($meta ?? []), $status);
     }
 }
 

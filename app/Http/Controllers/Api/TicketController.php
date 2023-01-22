@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\TicketRequest;
+use App\Http\Resources\Api\OrderCollection;
 use App\Models\Bus;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
@@ -13,7 +14,9 @@ class TicketController extends Controller
 {
     public function index()
     {
-        //
+        $reservations = Reservation::with('userOrders')->paginate();
+
+        return successResponse(OrderCollection::collection($reservations), $reservations);
     }
 
     public function store(TicketRequest $request)
@@ -54,7 +57,9 @@ class TicketController extends Controller
 
     public function show($id)
     {
-        //
+        $reservation = Reservation::with('userOrders')->findOrFail($id);
+
+        return successResponse(OrderCollection::make($reservation));
     }
 
     public function update(Request $request, $id)

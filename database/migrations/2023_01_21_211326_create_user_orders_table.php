@@ -17,6 +17,7 @@ return new class extends Migration
             $table->timestamp('reservation_date');
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
