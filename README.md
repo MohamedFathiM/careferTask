@@ -1,5 +1,9 @@
 # Carefer Backend Technical Assessment
 
+## Database structure
+
+<div><img src="/database/Schema.PNG" alt="Data Structure Diagram"><div>
+
 ## Development environment
 
 ### Requirements
