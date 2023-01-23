@@ -44,3 +44,7 @@ php artisan migrate:fresh --seed
 ```sh
 php artisan test
 ```
+
+### Postman Collection
+
+<a href="./carefer.postman_collection.json">Click </a>
