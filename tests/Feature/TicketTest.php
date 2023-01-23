@@ -7,10 +7,13 @@ use App\Models\Reservation;
 use App\Models\Seat;
 use App\Models\Trip;
 use App\Models\UserOrder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class TicketTest extends TestCase
 {
+    // use RefreshDatabase;
+
     public function test_store_ticket()
     {
         $bus = Bus::factory()->create([
