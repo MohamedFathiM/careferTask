@@ -26,7 +26,7 @@ class TicketController extends Controller
     {
         $data = $request->validated();
         $bus = Bus::find($data['bus_id']);
-        $lock = Cache::lock('bus' . $bus->id . '_lock', 120);
+        $lock = Cache::lock('bus'.$bus->id.'_lock', 120);
 
         try {
             if ($lock->get()) {
@@ -68,14 +68,14 @@ class TicketController extends Controller
 
     public function update(UpdateRequest $request, $id)
     {
-        $data  = $request->validated();
+        $data = $request->validated();
         $reservation = Reservation::findOrFail($id);
         foreach ($data['passengers'] as $passenger) {
             $reservation->userOrders()->where('id', $passenger['id'])
                 ->update(array_except($passenger, ['id']));
         }
 
-        return successResponse(OrderCollection::make($reservation), message: "Updated Successfully ");
+        return successResponse(OrderCollection::make($reservation), message: 'Updated Successfully ');
     }
 
     public function destroy($id)
@@ -84,7 +84,7 @@ class TicketController extends Controller
         $reservation->userOrders()->delete();
         $reservation->delete();
 
-        return successResponse(message: "Deleted Successfully ");
+        return successResponse(message: 'Deleted Successfully ');
     }
 
     public function frequentBooked()

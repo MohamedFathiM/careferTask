@@ -12,7 +12,7 @@ class FrequestTripResource extends JsonResource
             'trip_id' => $this->trip_id,
             'email' => $this->email,
             'frequentBookCount' => $this->email_count,
-            'frequentBook' => $this->trip->pickup . '-' . $this->trip->destination,
+            'frequentBook' => $this->trip->pickup.'-'.$this->trip->destination,
         ];
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Exceptions;
 
-use Dotenv\Exception\ValidationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -62,8 +61,8 @@ class Handler extends ExceptionHandler
                 $exception instanceof AuthenticationException => failedResponse(message: $exception->getMessage(), status: 401),
                 $exception instanceof ThrottleRequestsException => failedResponse(message: $exception->getMessage(), status: 429),
                 $exception instanceof ModelNotFoundException ||
-                    $exception instanceof NotFoundHttpException  => failedResponse(message: $exception->getMessage(), status: 404),
-                default => failedResponse(message: $exception->getMessage() . " in " . $exception->getFile() . " at line " . $exception->getLine(), status: 500)
+                    $exception instanceof NotFoundHttpException => failedResponse(message: $exception->getMessage(), status: 404),
+                default => failedResponse(message: $exception->getMessage().' in '.$exception->getFile().' at line '.$exception->getLine(), status: 500)
             };
         }
 

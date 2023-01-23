@@ -126,7 +126,7 @@ class TicketTest extends TestCase
     {
         $reservation = Reservation::factory()->create();
         $userOrder = UserOrder::factory()->create([
-            'reservation_id' => $reservation->id
+            'reservation_id' => $reservation->id,
         ]);
 
         $response = $this->deleteJson(route('orders.destroy', $reservation));
@@ -141,13 +141,13 @@ class TicketTest extends TestCase
         $reservation = Reservation::factory()->create();
         $userOrder = UserOrder::factory()->create([
             'reservation_id' => $reservation->id,
-            'email' => 'ahmed@yahoo.com'
+            'email' => 'ahmed@yahoo.com',
         ]);
 
         $response = $this->putJson(route('orders.update', $reservation), [
             'passengers' => [
                 [
-                    'id'    => $userOrder->id,
+                    'id' => $userOrder->id,
                     'email' => 'abutaleb@yahoo.com',
                 ],
             ],
