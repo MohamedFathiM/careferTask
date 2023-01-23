@@ -53,8 +53,6 @@
          "setup":[
             "@clear",
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
-            "@php -r \"file_exists('public/storage') && unlink('public/storage');\"",
-            "@php -r \"symlink(realpah('storage/app/public'),'public/storage');\"",
             "@php artisan key:generate"
         ],
          "clear": [
